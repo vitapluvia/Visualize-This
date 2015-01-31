@@ -14,10 +14,7 @@ def GetHexStringFromFile(binary_file='./hello'):
     while byte != "":
       byte = binfile.read(1)
       byte = binascii.hexlify(byte)
-      #if byte == "00":
-      #  hexString += hexString[-14:-12]
-      #else:
-      #  hexString += byte
+      if byte == "00": continue # Remove Padding Spaces
       hexString += byte
   finally:
     return hexString, binfile
@@ -47,7 +44,8 @@ def getRGBTuple(hexVal):
 
 def main():
 
-  binary_file = "./hello"
+  #binary_file = "./hello"
+  binary_file = "./ls"
   hexString, binfile = GetHexStringFromFile(binary_file)
   hexArray = SplitToHexArray(hexString)
   print hexArray
