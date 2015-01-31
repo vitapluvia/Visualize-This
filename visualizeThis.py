@@ -1,7 +1,7 @@
 import binascii
-import sys
 import Image
-
+import math
+import sys
 
 def GetHexStringFromFile(binary_file='./hello'):
   # Open test binary file:
@@ -51,8 +51,9 @@ def main():
   hexString, binfile = GetHexStringFromFile(binary_file)
   hexArray = SplitToHexArray(hexString)
   print hexArray
+  SIZE = int(math.sqrt(len(hexArray))) + 2
 
-  img = Image.new( 'RGB', (512, 512), "black") # create a new black image
+  img = Image.new( 'RGB', (SIZE, SIZE), "black") # create a new black image
   pixels = img.load() # create the pixel map
 
   i, j = 0,0
