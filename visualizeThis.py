@@ -1,11 +1,12 @@
 import binascii
+from optparse import OptionParser
 import Image
 import math
 import sys
 
 def GetHexStringFromFile(binary_file='./hello'):
   # Open test binary file:
-  binfile = open(binary_file,'rb')
+  binfile = open(binary_file, 'rb')
   hexString = ''
   try:
     byte = binfile.read(1)
@@ -26,7 +27,7 @@ def SplitToHexArray(hexString):
     hexArray.append(hexString[0:6])
     hexString = hexString[6:]
   # Add some Zero Padding to the last element if it's short of 6 characters.
-  if (len(hexArray[-1]) < 6): hexArray[-1] += (abs(len(hexArray[-1])-6))*'0'
+  if (len(hexArray[-1]) < 6): hexArray[-1] += (abs(len(hexArray[-1])-6)) * '0'
   return hexArray
 
 
@@ -43,9 +44,13 @@ def getRGBTuple(hexVal):
 ###############################################################################
 
 def main():
-
-  #binary_file = "./hello"
-  binary_file = "./ls"
+  parser = OptionParser()
+  parser.add_option('-f', '--file', dest='file', help='Select File')
+  opts, args = parser.parse_args()
+  if not opts.file:
+    print parser.format_help()
+    exit(0)
+  binary_file = opts.file
   hexString, binfile = GetHexStringFromFile(binary_file)
   hexArray = SplitToHexArray(hexString)
   print hexArray
